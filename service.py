@@ -21,15 +21,18 @@ else:
     
 russian_stopwords = stopwords.words("russian")
 
-def handler(event, context):
-    # Your code goes here!
-    tokens = mystem.lemmatize(event.get('text').lower())
-    tokens = [token for token in tokens if token not in russian_stopwords\
+def tokenize(event):
+    tmp1 = mystem.lemmatize(event.get('text').lower())
+    tmp2 = [token for token in tmp1 if token not in russian_stopwords\
               and token != " " \
               and token.strip() not in punctuation]
 
     # the next line is supposed to de-dupe our list
-    tokens = list(set(tokens))
+    return list(set(tmp2))
+
+def handler(event, context):
+    # Your code goes here!
+    tmp = tokenize(event)
 
     # Send the SQS message
     print("writing to queue")
@@ -40,4 +43,4 @@ def handler(event, context):
         sqs_client.send_message(QueueUrl=sqs_queue_url,
                                         MessageBody=json.dumps(tokens))
     
-    return tokens
+    return tmp
