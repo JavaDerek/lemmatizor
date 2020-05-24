@@ -43,4 +43,4 @@ def handler(event, context):
         sqs_client.send_message(QueueUrl=sqs_queue_url,
                                         MessageBody=json.dumps(tokens))
     
-    return tmp
+    return tokens
