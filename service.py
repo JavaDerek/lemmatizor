@@ -32,7 +32,7 @@ def tokenize(event):
 
 def handler(event, context):
     # Your code goes here!
-    tmp = tokenize(event)
+    tokens = tokenize(event)
 
     # Send the SQS message
     print("writing to queue")
