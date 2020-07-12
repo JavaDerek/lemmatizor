@@ -10,6 +10,7 @@ import json
 from nltk.corpus import stopwords
 from pymystem3 import Mystem
 from string import punctuation
+from kafka import KafkaProducer
 
 if (platform.system() == 'Darwin'):
     mystem = Mystem(mystem_bin='./mystem-mac')
